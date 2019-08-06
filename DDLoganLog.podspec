@@ -7,9 +7,9 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'DDCardView'
+  s.name             = 'DDLoganLog'
   s.version          = '1.0.0'
-  s.summary          = 'iOS DeviceInfo'
+  s.summary          = 'iOS LoganLog'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/DDstrongman/DDCardView'
+  s.homepage         = 'https://github.com/DDstrongman/DDLoganLog'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'DDStrongman' => 'lishengshu232@gmail.com' }
   s.source           = { :git => 'https://github.com/DDstrongman/DDCardView.git', :tag => s.version.to_s }
@@ -29,10 +29,11 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'DDCardView/Classes/**/*' 
-  s.resource_bundles = {
-    'DDCardViewSpec' => ['DDCardView/Assets/*.png']
-  }
-  s.dependency 'SDWebImage'
+  # s.resource_bundles = {
+  #   'DDCardViewSpec' => ['DDCardView/Assets/*.png']
+  # }
+  s.dependency 'Logan'
+  s.dependency 'Aspects'
 #s.frameworks = 'sys', 'arpa', 'Foundation', 'ifaddrs'
 
 end
