@@ -7,8 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Logan.h"
-#import "Aspects.h"
+#import <Logan/Logan.h>
+#import <Aspects/Aspects.h>
 
 #import <objc/runtime.h>
 
