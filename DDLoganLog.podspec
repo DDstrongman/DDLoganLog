@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DDLoganLog'
-  s.version          = '1.0.1'
+  s.version          = '1.0.4'
   s.summary          = 'iOS LoganLog'
 
 # This description is used to generate tags and improve search results.
