@@ -21,23 +21,23 @@
 ***举个栗子：***
 
 ```objective-c
-    [NSObject uploadLogan:^(NSString * _Nonnull filePath) {
-    //请求ReqestAuth
-    NSString* urltoUpload = @"www.baidu.com";
-    NSURL *urlOSS = [NSURL URLWithString:urltoUpload];
-    NSMutableURLRequest *mutableRequestOSS = [[NSMutableURLRequest alloc] initWithURL:urlOSS];
-    mutableRequestOSS.HTTPMethod = @"PUT";
-    [mutableRequestOSS setValue:@"application/octet-stream" forHTTPHeaderField:@"Content-Type"];
-    NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
-    NSURLSessionUploadTask *task = [[NSURLSession sharedSession] uploadTaskWithRequest:mutableRequestOSS fromFile:fileUrl completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-    if (error == nil) {
-    NSLog(@"upload success");
-    [NSObject deleteLoganFile:filePath];
-    } else {
-    NSLog(@"upload failed. error:%@", error);
-    }
-    }];
-    [task resume];
+[NSObject uploadLogan:^(NSString * _Nonnull filePath) {
+        //请求ReqestAuth
+        NSString* urltoUpload = @"www.baidu.com";
+        NSURL *urlOSS = [NSURL URLWithString:urltoUpload];
+        NSMutableURLRequest *mutableRequestOSS = [[NSMutableURLRequest alloc] initWithURL:urlOSS];
+        mutableRequestOSS.HTTPMethod = @"PUT";
+        [mutableRequestOSS setValue:@"application/octet-stream" forHTTPHeaderField:@"Content-Type"];
+        NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
+        NSURLSessionUploadTask *task = [[NSURLSession sharedSession] uploadTaskWithRequest:mutableRequestOSS fromFile:fileUrl completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+            if (error == nil) {
+                NSLog(@"upload success");
+                [NSObject deleteLoganFile:filePath];
+            } else {
+                NSLog(@"upload failed. error:%@", error);
+            }
+        }];
+        [task resume];
     }];
 ```
 
