@@ -18,14 +18,14 @@
                              swizzledSel:@selector(dd_becomeFirstResponder)];
     [self swizzlingMethodWithOriginalSel:@selector(resignFirstResponder)
                              swizzledSel:@selector(dd_resignFirstResponder)];
-    [self aspect_hookSelector:@selector(touchesBegan:withEvent:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSSet<UITouch *> *touches,UIEvent *event) {
-        logan(DDEventTouchBegin, [NSString stringWithFormat:@"UIResponder touch begin=%@",touches]);
-    }
-                        error:&error];
-    [self aspect_hookSelector:@selector(touchesEnded:withEvent:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSSet<UITouch *> *touches,UIEvent *event) {
-        logan(DDEventTouchEnd, [NSString stringWithFormat:@"UIResponder touch end=%@",touches]);
-    }
-                        error:&error];
+//    [self aspect_hookSelector:@selector(touchesBegan:withEvent:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSSet<UITouch *> *touches,UIEvent *event) {
+//        logan(DDEventTouchBegin, [NSString stringWithFormat:@"UIResponder touch begin=%@",touches]);
+//    }
+//                        error:&error];
+//    [self aspect_hookSelector:@selector(touchesEnded:withEvent:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSSet<UITouch *> *touches,UIEvent *event) {
+//        logan(DDEventTouchEnd, [NSString stringWithFormat:@"UIResponder touch end=%@",touches]);
+//    }
+//                        error:&error];
 }
 
 - (BOOL)dd_becomeFirstResponder {
