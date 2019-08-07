@@ -48,7 +48,6 @@
 }
 #pragma mark - data task init methods
 - (NSURLSessionDataTask *)dd_dataTaskWithURL:(NSURL *)url {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[url absoluteString]]);
     return [self dd_dataTaskWithURL:url completionHandler:nil];
 }
 
@@ -67,7 +66,6 @@
 }
 
 - (NSURLSessionDataTask *)dd_dataTaskWithRequest:(NSURLRequest *)request {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
     return [self dd_dataTaskWithRequest:request completionHandler:nil];
 }
 
@@ -86,7 +84,6 @@
 }
 #pragma mark - upload task methods
 - (NSURLSessionUploadTask *)dd_uploadTaskWithRequest:(NSURLRequest *)request fromFile:(NSURL *)fileURL {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
     return [self dd_uploadTaskWithRequest:request fromFile:fileURL completionHandler:nil];
 }
 
@@ -105,7 +102,6 @@
 }
 
 - (NSURLSessionUploadTask *)dd_uploadTaskWithRequest:(NSURLRequest *)request fromData:(nullable NSData *)bodyData {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
     return [self dd_uploadTaskWithRequest:request fromData:bodyData completionHandler:nil];
 }
 
