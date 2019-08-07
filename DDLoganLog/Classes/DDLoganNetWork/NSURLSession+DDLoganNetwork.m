@@ -124,7 +124,6 @@
 }
 #pragma mark - download task methods
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithRequest:(NSURLRequest *)request {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
     return [self dd_downloadTaskWithRequest:request completionHandler:nil];
 }
 
@@ -143,7 +142,6 @@
 }
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithURL:(NSURL *)url {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",url.absoluteString]);
     return [self dd_downloadTaskWithURL:url completionHandler:nil];
 }
 
@@ -162,7 +160,6 @@
 }
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithResumeData:(NSData *)resumeData {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",resumeData]);
     return [self dd_downloadTaskWithResumeData:resumeData completionHandler:nil];
 }
 
