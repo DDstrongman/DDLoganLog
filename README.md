@@ -62,4 +62,4 @@ DDStrongman, lishengshu232@gmail.com
 
 ## License
 
-DDCardView is available under the MIT license. See the LICENSE file for more info.
+DDLogan is available under the MIT license. See the LICENSE file for more info.
