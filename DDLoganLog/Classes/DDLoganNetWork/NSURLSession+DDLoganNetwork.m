@@ -40,10 +40,13 @@
 }
 
 + (NSURLSession *)dd_sessionWithConfiguration:(NSURLSessionConfiguration *)configuration delegate:(nullable id <NSURLSessionDelegate>)delegate delegateQueue:(nullable NSOperationQueue *)queue {
-    dd_exchangeMethod([delegate class], @selector(URLSession:task:didCompleteWithError:), self, @selector(dd_URLSession:task:didCompleteWithError:), @selector(dd_URLSession:task:didCompleteWithError:));
-    dd_exchangeMethod([delegate class], @selector(URLSession:dataTask:didReceiveResponse:completionHandler:), self, @selector(dd_URLSession:dataTask:didReceiveResponse:completionHandler:), @selector(dd_URLSession:dataTask:didReceiveResponse:completionHandler:));
-    dd_exchangeMethod([delegate class], @selector(URLSession:downloadTask:didFinishDownloadingToURL:), self, @selector(dd_URLSession:downloadTask:didFinishDownloadingToURL:), @selector(dd_URLSession:downloadTask:didFinishDownloadingToURL:));
-    dd_exchangeMethod([delegate class], @selector(URLSession:streamTask:didBecomeInputStream:outputStream:), self, @selector(dd_URLSession:streamTask:didBecomeInputStream:outputStream:), @selector(dd_URLSession:streamTask:didBecomeInputStream:outputStream:));
+//    [[delegate class]aspect_hookSelector:@selector(URLSession:task:didCompleteWithError:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSURLSession *session ,NSURLSessionTask *task,NSError *error) {
+//        DDLog(@"=============321============");
+//    } error:nil];
+    dd_exchangeMethod([delegate class], @selector(URLSession:task:didCompleteWithError:), self, @selector(dd_replace_URLSession:task:didCompleteWithError:), @selector(dd_add_URLSession:task:didCompleteWithError:));
+    dd_exchangeMethod([delegate class], @selector(URLSession:dataTask:didReceiveResponse:completionHandler:), self, @selector(dd_replace_URLSession:dataTask:didReceiveResponse:completionHandler:), @selector(dd_add_URLSession:dataTask:didReceiveResponse:completionHandler:));
+    dd_exchangeMethod([delegate class], @selector(URLSession:downloadTask:didFinishDownloadingToURL:), self, @selector(dd_replace_URLSession:downloadTask:didFinishDownloadingToURL:), @selector(dd_add_URLSession:downloadTask:didFinishDownloadingToURL:));
+    dd_exchangeMethod([delegate class], @selector(URLSession:streamTask:didBecomeInputStream:outputStream:), self, @selector(dd_replace_URLSession:streamTask:didBecomeInputStream:outputStream:), @selector(dd_add_URLSession:streamTask:didBecomeInputStream:outputStream:));
     return [self dd_sessionWithConfiguration:configuration delegate:delegate delegateQueue:queue];
 }
 #pragma mark - data task init methods
@@ -72,6 +75,7 @@
 - (NSURLSessionDataTask *)dd_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
     return [self dd_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        DDLog(@"self=%@",NSStringFromClass([self class]));
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
         } else {
@@ -173,31 +177,54 @@
     }];
 }
 #pragma mark - dd delegate
-- (void)dd_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+- (void)dd_add_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
  didCompleteWithError:(nullable NSError *)error {
     logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-    [self dd_URLSession:session task:task didCompleteWithError:error];
 }
 
-- (void)dd_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+- (void)dd_replace_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+     didCompleteWithError:(nullable NSError *)error {
+    logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+    [self dd_replace_URLSession:session task:task didCompleteWithError:error];
+}
+
+- (void)dd_add_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+           didReceiveResponse:(NSURLResponse *)response
+            completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+}
+
+- (void)dd_replace_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response
  completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-    [self dd_URLSession:session dataTask:dataTask didReceiveResponse:response completionHandler:completionHandler];
+    [self dd_replace_URLSession:session dataTask:dataTask didReceiveResponse:response completionHandler:completionHandler];
 }
 
-- (void)dd_URLSession:(NSURLSession *)session
+- (void)dd_add_URLSession:(NSURLSession *)session
          downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",downloadTask.response.description]);
-    [self dd_URLSession:session downloadTask:downloadTask didFinishDownloadingToURL:location];
 }
 
-- (void)dd_URLSession:(NSURLSession *)session streamTask:(NSURLSessionStreamTask *)streamTask
+- (void)dd_replace_URLSession:(NSURLSession *)session
+         downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location {
+    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",downloadTask.response.description]);
+    [self dd_replace_URLSession:session downloadTask:downloadTask didFinishDownloadingToURL:location];
+}
+
+- (void)dd_add_URLSession:(NSURLSession *)session streamTask:(NSURLSessionStreamTask *)streamTask
+ didBecomeInputStream:(NSInputStream *)inputStream
+         outputStream:(NSOutputStream *)outputStream {
+    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",streamTask.response.description]);
+}
+
+- (void)dd_replace_URLSession:(NSURLSession *)session streamTask:(NSURLSessionStreamTask *)streamTask
 didBecomeInputStream:(NSInputStream *)inputStream
       outputStream:(NSOutputStream *)outputStream {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",streamTask.response.description]);
-    [self dd_URLSession:session streamTask:streamTask didBecomeInputStream:inputStream outputStream:outputStream];
+    [self dd_replace_URLSession:session streamTask:streamTask didBecomeInputStream:inputStream outputStream:outputStream];
 }
 
 @end

@@ -30,7 +30,6 @@
 
 - (void)dd_add_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     logan(DDEventTableviewDidSelect, [NSString stringWithFormat:@"tableview select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,tableView.frame.origin.x,tableView.frame.origin.y]);
-    [self dd_add_tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
 @end
