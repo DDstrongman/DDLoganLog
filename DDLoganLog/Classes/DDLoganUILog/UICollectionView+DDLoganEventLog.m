@@ -24,11 +24,13 @@
 
 - (void)dd_replace_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     logan(DDEventCollectionviewDidSelect, [NSString stringWithFormat:@"collectionView select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,collectionView.frame.origin.x,collectionView.frame.origin.y]);
+    loganFlush();
     [self dd_replace_collectionView:collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 - (void)dd_add_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     logan(DDEventCollectionviewDidSelect, [NSString stringWithFormat:@"collectionView select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,collectionView.frame.origin.x,collectionView.frame.origin.y]);
+    loganFlush();
 }
 
 @end

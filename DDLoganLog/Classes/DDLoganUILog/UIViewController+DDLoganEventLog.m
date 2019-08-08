@@ -21,11 +21,13 @@
 
 - (void)dd_viewDidAppear:(BOOL)animated {
     logan(DDEventViewControllerDidAppear, [NSString stringWithFormat:@"AppearVCClass=%@",NSStringFromClass([self class])]);
+    loganFlush();
     [self dd_viewDidAppear:animated];
 }
 
 - (void)dd_viewDidDisappear:(BOOL)animated {
     logan(DDEventViewControllerDidDisappear, [NSString stringWithFormat:@"DisappearVCClass=%@",NSStringFromClass([self class])]);
+    loganFlush();
     [self dd_viewDidDisappear:animated];
 }
 

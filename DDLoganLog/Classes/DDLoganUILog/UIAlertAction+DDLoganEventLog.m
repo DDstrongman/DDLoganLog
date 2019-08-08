@@ -21,6 +21,7 @@
                               style:style
                             handler:^(UIAlertAction *action) {
                                 logan(DDEventAlertActionClick, [NSString stringWithFormat:@"title=%@,style=%ld",title,style]);
+                                loganFlush();
                                 if (handler) {
                                     handler(action);
                                 }

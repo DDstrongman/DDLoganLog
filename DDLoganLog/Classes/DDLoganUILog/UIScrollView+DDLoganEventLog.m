@@ -26,10 +26,12 @@
 
 - (void)dd_add_scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     logan(DDEventScrollviewDidScroll, [NSString stringWithFormat:@"scroll:x=%f,y=%f,frame.x=%f,frame.y=%f",scrollView.contentOffset.x,scrollView.contentOffset.y,scrollView.frame.origin.x,scrollView.frame.origin.y]);
+    loganFlush();
 }
 
 - (void)dd_replace_scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     logan(DDEventScrollviewDidScroll, [NSString stringWithFormat:@"scroll:x=%f,y=%f,frame.x=%f,frame.y=%f",scrollView.contentOffset.x,scrollView.contentOffset.y,scrollView.frame.origin.x,scrollView.frame.origin.y]);
+    loganFlush();
     [self dd_replace_scrollViewDidEndDecelerating:scrollView];
 }
 

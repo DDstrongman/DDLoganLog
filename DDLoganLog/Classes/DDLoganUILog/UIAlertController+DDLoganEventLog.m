@@ -20,11 +20,13 @@
 
 - (void)dd_alertController_viewDidAppear:(BOOL)animated {
     logan(DDEventAlertControllerDidAppear, [NSString stringWithFormat:@"AppearVCClass=%@,title=%@,message=%@",NSStringFromClass([self class]),self.title,self.message]);
+    loganFlush();
     [self dd_alertController_viewDidAppear:animated];
 }
 
 - (void)dd_alertController_viewDidDisappear:(BOOL)animated {
     logan(DDEventAlertControllerDidDisappear, [NSString stringWithFormat:@"DisappearVCClass=%@,title=%@,message=%@",NSStringFromClass([self class]),self.title,self.message]);
+    loganFlush();
     [self dd_alertController_viewDidDisappear:animated];
 }
 

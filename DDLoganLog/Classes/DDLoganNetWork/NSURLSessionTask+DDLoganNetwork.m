@@ -22,13 +22,16 @@
     [[localDataTask class] aspect_hookSelector:@selector(resume) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
         NSURLSessionTask *task = [aspectInfo instance];
         logan(DDNetLogBegin,[NSString stringWithFormat:@"NSURLSessionTask resume url=%@",[task.currentRequest.URL absoluteString]]);
+        loganFlush();
         if (task.error) {
             logan(DDNetLogFailed,[NSString stringWithFormat:@"NSURLSessionTask error url=%@,error=%@",[task.currentRequest.URL absoluteString],task.error]);
+            loganFlush();
         }
     } error:&error];
     [[localDataTask class] aspect_hookSelector:@selector(suspend) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
         NSURLSessionTask *task = [aspectInfo instance];
         logan(DDNetLogFailed,[NSString stringWithFormat:@"NSURLSessionTask suspend url=%@",[task.currentRequest.URL absoluteString]]);
+        loganFlush();
     } error:&error];
 }
 

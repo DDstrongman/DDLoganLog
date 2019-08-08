@@ -32,6 +32,7 @@
     BOOL result = [self dd_becomeFirstResponder];
     if (![self isKindOfClass:[UIViewController class]]) {
         logan(DDEventBecomeFirstResponder, [NSString stringWithFormat:@"className=%@",NSStringFromClass([self class])]);
+        loganFlush();
     }
     return result;
 }
@@ -40,6 +41,7 @@
     BOOL result = [self dd_resignFirstResponder];
     if (![self isKindOfClass:[UIViewController class]]) {
         logan(DDEventResignFirstResponder, [NSString stringWithFormat:@"className=%@",NSStringFromClass([self class])]);
+        loganFlush();
     }
     return result;
 }

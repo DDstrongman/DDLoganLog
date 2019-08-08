@@ -53,11 +53,14 @@
 
 - (NSURLSessionDataTask *)dd_dataTaskWithURL:(NSURL *)url completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler{
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[url absoluteString]]);
+    loganFlush();
     return [self dd_dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -71,11 +74,14 @@
 
 - (NSURLSessionDataTask *)dd_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
+    loganFlush();
     return [self dd_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -89,11 +95,14 @@
 
 - (NSURLSessionUploadTask *)dd_uploadTaskWithRequest:(NSURLRequest *)request fromFile:(NSURL *)fileURL completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
+    loganFlush();
     return [self dd_uploadTaskWithRequest:request fromFile:fileURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -107,11 +116,14 @@
 
 - (NSURLSessionUploadTask *)dd_uploadTaskWithRequest:(NSURLRequest *)request fromData:(nullable NSData *)bodyData completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
+    loganFlush();
     return [self dd_uploadTaskWithRequest:request fromData:bodyData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -125,11 +137,14 @@
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
+    loganFlush();
     return [self dd_downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(location,response,error);
@@ -143,11 +158,14 @@
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithURL:(NSURL *)url completionHandler:(void (^)(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",url.absoluteString]);
+    loganFlush();
     return [self dd_downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(location,response,error);
@@ -161,11 +179,14 @@
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithResumeData:(NSData *)resumeData completionHandler:(void (^)(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",resumeData]);
+    loganFlush();
     return [self dd_downloadTaskWithResumeData:resumeData completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+            loganFlush();
         } else {
             logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+            loganFlush();
         }
         if (completionHandler) {
             completionHandler(location,response,error);
@@ -177,6 +198,7 @@
  didCompleteWithError:(nullable NSError *)error {
     if (error) {
         logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+        loganFlush();
     }
 }
 
@@ -184,6 +206,7 @@
      didCompleteWithError:(nullable NSError *)error {
     if (error) {
         logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+        loganFlush();
     }
     [self dd_replace_URLSession:session task:task didCompleteWithError:error];
 }
@@ -192,12 +215,14 @@
            didReceiveResponse:(NSURLResponse *)response
             completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+    loganFlush();
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response
  completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
+    loganFlush();
     [self dd_replace_URLSession:session dataTask:dataTask didReceiveResponse:response completionHandler:completionHandler];
 }
 
@@ -205,12 +230,14 @@ didReceiveResponse:(NSURLResponse *)response
          downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",downloadTask.response.description]);
+    loganFlush();
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session
          downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",downloadTask.response.description]);
+    loganFlush();
     [self dd_replace_URLSession:session downloadTask:downloadTask didFinishDownloadingToURL:location];
 }
 
@@ -218,12 +245,14 @@ didFinishDownloadingToURL:(NSURL *)location {
  didBecomeInputStream:(NSInputStream *)inputStream
          outputStream:(NSOutputStream *)outputStream {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",streamTask.response.description]);
+    loganFlush();
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session streamTask:(NSURLSessionStreamTask *)streamTask
 didBecomeInputStream:(NSInputStream *)inputStream
       outputStream:(NSOutputStream *)outputStream {
     logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",streamTask.response.description]);
+    loganFlush();
     [self dd_replace_URLSession:session streamTask:streamTask didBecomeInputStream:inputStream outputStream:outputStream];
 }
 

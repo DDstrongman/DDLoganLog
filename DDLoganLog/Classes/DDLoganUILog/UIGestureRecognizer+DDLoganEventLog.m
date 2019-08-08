@@ -24,6 +24,7 @@
                    usingBlock:^(id<AspectInfo> aspectInfo,id target,SEL action) {
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
                            logan(DDEventGestureTargetAction, [NSString stringWithFormat:@"uigesture  class=%@,target=%@,sel=%@",NSStringFromClass([self class]),target,NSStringFromSelector(action)]);
+                           loganFlush();
                        } error:nil];
                    }
                         error:&error];
@@ -32,6 +33,7 @@
                    usingBlock:^(id<AspectInfo> aspectInfo,id target,SEL action) {
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
                            logan(DDEventGestureTargetAction, [NSString stringWithFormat:@"uigesture  class=%@,target=%@,sel=%@",NSStringFromClass([self class]),target,NSStringFromSelector(action)]);
+                           loganFlush();
                        } error:nil];
                    } error:&error];
 }

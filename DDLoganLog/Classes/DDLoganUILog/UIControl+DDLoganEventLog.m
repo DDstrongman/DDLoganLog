@@ -18,6 +18,7 @@
                    usingBlock:^(id<AspectInfo> aspectInfo,id target,SEL action,UIControlEvents controlEvents) {
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo){
                            logan(DDEventControlTargetAction, [NSString stringWithFormat:@"uicontrol  class=%@,target=%@,sel=%@,events=%ld",self,target,NSStringFromSelector(action),controlEvents]);
+                           loganFlush();
                        } error:nil];
                    }
                         error:&error];
