@@ -40,9 +40,6 @@
 }
 
 + (NSURLSession *)dd_sessionWithConfiguration:(NSURLSessionConfiguration *)configuration delegate:(nullable id <NSURLSessionDelegate>)delegate delegateQueue:(nullable NSOperationQueue *)queue {
-//    [[delegate class]aspect_hookSelector:@selector(URLSession:task:didCompleteWithError:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSURLSession *session ,NSURLSessionTask *task,NSError *error) {
-//        DDLog(@"=============321============");
-//    } error:nil];
     dd_exchangeMethod([delegate class], @selector(URLSession:task:didCompleteWithError:), self, @selector(dd_replace_URLSession:task:didCompleteWithError:), @selector(dd_add_URLSession:task:didCompleteWithError:));
     dd_exchangeMethod([delegate class], @selector(URLSession:dataTask:didReceiveResponse:completionHandler:), self, @selector(dd_replace_URLSession:dataTask:didReceiveResponse:completionHandler:), @selector(dd_add_URLSession:dataTask:didReceiveResponse:completionHandler:));
     dd_exchangeMethod([delegate class], @selector(URLSession:downloadTask:didFinishDownloadingToURL:), self, @selector(dd_replace_URLSession:downloadTask:didFinishDownloadingToURL:), @selector(dd_add_URLSession:downloadTask:didFinishDownloadingToURL:));
@@ -75,7 +72,6 @@
 - (NSURLSessionDataTask *)dd_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
     return [self dd_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        DDLog(@"self=%@",NSStringFromClass([self class]));
         if (error) {
             logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
         } else {
