@@ -175,12 +175,16 @@
 #pragma mark - dd delegate
 - (void)dd_add_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
  didCompleteWithError:(nullable NSError *)error {
-    logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+    if (error) {
+        logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+    }
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
      didCompleteWithError:(nullable NSError *)error {
-    logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+    if (error) {
+        logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
+    }
     [self dd_replace_URLSession:session task:task didCompleteWithError:error];
 }
 
