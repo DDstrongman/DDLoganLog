@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DDLoganLog'
-  s.version          = '1.1.4'
+  s.version          = '1.1.5'
   s.summary          = 'iOS LoganLog'
 
 # This description is used to generate tags and improve search results.
@@ -34,6 +34,7 @@ TODO: Add long description of the pod here.
   # }
   s.dependency 'Logan'
   s.dependency 'Aspects'
+  s.dependency 'MJExtension'
 #s.frameworks = 'sys', 'arpa', 'Foundation', 'ifaddrs'
 
 end
