@@ -21,18 +21,24 @@
 + (nullable NSData *)dd_sendSynchronousRequest:(NSURLRequest *)request
                              returningResponse:(NSURLResponse * _Nullable * _Nullable)response
                                          error:(NSError **)error {
-    logan(DDNetLogBegin, @"NSURLConnection sendSynchronous");
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = request.URL.absoluteString;
+    model.des = @"NSURLConnection sendSynchronous";
+    logan(DDNetLogBegin, [@"" objectToJson:model.mj_keyValues]);
     NSData *tempData = [self dd_sendSynchronousRequest:request
                                      returningResponse:response
                                                  error:error];
     if (error) {
-        logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLConnection failed=%@",(*error).description]);
-        loganFlush();
+        model.code = (*error).code;
+        model.des = (*error).description;
+        logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
     } else {
         if (response) {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLConnection succes=%@",(*response).description]);
-            loganFlush();
+            if ([(*response) isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)(*response)).statusCode;
+            }
+            model.des = (*response).description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
     }
     return tempData;
@@ -41,17 +47,23 @@
 + (void)dd_sendAsynchronousRequest:(NSURLRequest*) request
                           queue:(NSOperationQueue*) queue
               completionHandler:(void (^)(NSURLResponse* _Nullable response, NSData* _Nullable data, NSError* _Nullable connectionError)) handler {
-    logan(DDNetLogBegin, @"NSURLConnection sendAsynchronous");
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = request.URL.absoluteString;
+    model.des = @"NSURLConnection sendAsynchronous";
+    logan(DDNetLogBegin, [@"" objectToJson:model.mj_keyValues]);
     [self dd_sendAsynchronousRequest:request
                                queue:queue
                    completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
                        if (connectionError) {
-                           logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLConnection failed=%@",connectionError.description]);
-                           loganFlush();
+                           model.code = connectionError.code;
+                           model.des = connectionError.description;
+                           logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
                        } else {
-                           logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLConnection succes=%@",response.description]);
-                           loganFlush();
+                           if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                               model.code = ((NSHTTPURLResponse *)response).statusCode;
+                           }
+                           model.des = response.description;
+                           logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
                        }
                        if (handler) {
                            handler(response,data,connectionError);
@@ -61,16 +73,22 @@
 
 - (void)dd_connection:(NSURLConnection *)connection
      didFailWithError:(NSError *)error {
-    logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLConnection failed=%@,url=%@,method=%@",error.description,[self.currentRequest.URL absoluteString],self.currentRequest.HTTPMethod]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = self.currentRequest.URL.absoluteString;
+    model.des = error.description;
+    model.method = self.currentRequest.HTTPMethod;
+    logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
     [self dd_connection:connection
        didFailWithError:error];
 }
 
 - (void)dd_connection:(NSURLConnection *)connection
    didReceiveResponse:(NSURLResponse *)response {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLConnection response=%@,url=%@,method=%@",response.description,[self.currentRequest.URL absoluteString],self.currentRequest.HTTPMethod]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = self.currentRequest.URL.absoluteString;
+    model.des = response.description;
+    model.method = self.currentRequest.HTTPMethod;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
     [self dd_connection:connection
      didReceiveResponse:response];
 }

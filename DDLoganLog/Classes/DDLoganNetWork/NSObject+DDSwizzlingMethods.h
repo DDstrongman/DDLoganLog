@@ -9,37 +9,11 @@
 
 #import <Logan/Logan.h>
 #import <Aspects/Aspects.h>
+#import <MJExtension/MJExtension.h>
+#import "DDLoganLogModel.h"
+#import "NSString+DDLoganNetwork.h"
 
 #import <objc/runtime.h>
-
-typedef enum {
-    DDActionEventLogType = 0,
-    DDNetLogInit,
-    DDNetLogBegin,
-    DDNetLogProgress,
-    DDNetLogSuccess,
-    DDNetLogFailed,
-    DDSocketInit,
-    DDSocketBegin,
-    DDSocketSuccess,
-    DDSocketFailed,
-    DDSocketClosed,
-    DDEventBecomeFirstResponder = 100,
-    DDEventResignFirstResponder,
-    DDEventScrollviewDidScroll,
-    DDEventTableviewDidSelect,
-    DDEventCollectionviewDidSelect,
-    DDEventControlTargetAction,
-    DDEventTouchBegin,
-    DDEventTouchEnd,
-    DDEventGestureTargetAction,
-    DDEventAlertActionClick,
-    DDEventViewControllerDidAppear = 1000,
-    DDEventViewControllerDidDisappear,
-    DDEventApplicationOpenUrl,
-    DDEventAlertControllerDidAppear,
-    DDEventAlertControllerDidDisappear
-}DDLoganLogType;
 
 NS_ASSUME_NONNULL_BEGIN
 

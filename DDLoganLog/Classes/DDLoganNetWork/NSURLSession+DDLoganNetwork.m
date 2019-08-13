@@ -13,11 +13,6 @@
 
 + (void)load {
     [self swizzlingClassMethodWithOriginalSel:@selector(sessionWithConfiguration:delegate:delegateQueue:) swizzledSel:@selector(dd_sessionWithConfiguration:delegate:delegateQueue:)];
-    
-//    void(^completionHandler)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        
-//    };
-    
     [self swizzlingMethodWithOriginalSel:@selector(dataTaskWithURL:completionHandler:) swizzledSel:@selector(dd_dataTaskWithURL:completionHandler:)];
     [self swizzlingMethodWithOriginalSel:@selector(dataTaskWithRequest:completionHandler:) swizzledSel:@selector(dd_dataTaskWithRequest:completionHandler:)];
     
@@ -51,16 +46,22 @@
     return [self dd_dataTaskWithURL:url completionHandler:nil];
 }
 
-- (NSURLSessionDataTask *)dd_dataTaskWithURL:(NSURL *)url completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler{
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[url absoluteString]]);
-    loganFlush();
+- (NSURLSessionDataTask *)dd_dataTaskWithURL:(NSURL *)url completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = [url absoluteString];
+    model.des = @"NSURLSessionDataTask init";
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -73,15 +74,21 @@
 }
 
 - (NSURLSessionDataTask *)dd_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = [request.URL absoluteString];
+    model.des = @"NSURLSessionDataTask init";
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -94,15 +101,21 @@
 }
 
 - (NSURLSessionUploadTask *)dd_uploadTaskWithRequest:(NSURLRequest *)request fromFile:(NSURL *)fileURL completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = [request.URL absoluteString];
+    model.des = @"NSURLSessionUploadTask init";
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_uploadTaskWithRequest:request fromFile:fileURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -115,15 +128,21 @@
 }
 
 - (NSURLSessionUploadTask *)dd_uploadTaskWithRequest:(NSURLRequest *)request fromData:(nullable NSData *)bodyData completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = [request.URL absoluteString];
+    model.des = @"NSURLSessionUploadTask init";
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_uploadTaskWithRequest:request fromData:bodyData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(data,response,error);
@@ -136,15 +155,21 @@
 }
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",[request.URL absoluteString]]);
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = [request.URL absoluteString];
+    model.des = @"NSURLSessionDownloadTask init";
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(location,response,error);
@@ -157,15 +182,21 @@
 }
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithURL:(NSURL *)url completionHandler:(void (^)(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",url.absoluteString]);
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = url.absoluteString;
+    model.des = @"NSURLSessionDownloadTask init";
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(location,response,error);
@@ -178,15 +209,20 @@
 }
 
 - (NSURLSessionDownloadTask *)dd_downloadTaskWithResumeData:(NSData *)resumeData completionHandler:(void (^)(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    logan(DDNetLogInit, [NSString stringWithFormat:@"NSURLSession init=%@",resumeData]);
-    loganFlush();
+    __block DDLoganLogModel *model = [DDLoganLogModel new];
+    model.des = resumeData.description;
+    logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_downloadTaskWithResumeData:resumeData completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
-            logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-            loganFlush();
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                model.code = ((NSHTTPURLResponse *)response).statusCode;
+            }
+            model.des = response.description;
+            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
         if (completionHandler) {
             completionHandler(location,response,error);
@@ -196,63 +232,93 @@
 #pragma mark - dd delegate
 - (void)dd_add_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
  didCompleteWithError:(nullable NSError *)error {
-    if (error) {
-        logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-        loganFlush();
-    }
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.code = error.code;
+    model.des = error.description;
+    logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
      didCompleteWithError:(nullable NSError *)error {
-    if (error) {
-        logan(DDNetLogFailed, [NSString stringWithFormat:@"NSURLSession failed=%@",error.description]);
-        loganFlush();
-    }
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.code = error.code;
+    model.des = error.description;
+    logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_URLSession:session task:task didCompleteWithError:error];
 }
 
 - (void)dd_add_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
            didReceiveResponse:(NSURLResponse *)response
             completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = response.URL.absoluteString;
+    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+        model.code = ((NSHTTPURLResponse *)response).statusCode;
+    }
+    model.des = response.description;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response
  completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",response.description]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = response.URL.absoluteString;
+    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+        model.code = ((NSHTTPURLResponse *)response).statusCode;
+    }
+    model.des = response.description;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_URLSession:session dataTask:dataTask didReceiveResponse:response completionHandler:completionHandler];
 }
 
 - (void)dd_add_URLSession:(NSURLSession *)session
          downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",downloadTask.response.description]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = downloadTask.response.URL.absoluteString;
+    if ([downloadTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        model.code = ((NSHTTPURLResponse *)downloadTask.response).statusCode;
+    }
+    model.des = downloadTask.response.description;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session
          downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",downloadTask.response.description]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = downloadTask.response.URL.absoluteString;
+    if ([downloadTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        model.code = ((NSHTTPURLResponse *)downloadTask.response).statusCode;
+    }
+    model.des = downloadTask.response.description;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_URLSession:session downloadTask:downloadTask didFinishDownloadingToURL:location];
 }
 
 - (void)dd_add_URLSession:(NSURLSession *)session streamTask:(NSURLSessionStreamTask *)streamTask
  didBecomeInputStream:(NSInputStream *)inputStream
          outputStream:(NSOutputStream *)outputStream {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",streamTask.response.description]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = streamTask.response.URL.absoluteString;
+    if ([streamTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        model.code = ((NSHTTPURLResponse *)streamTask.response).statusCode;
+    }
+    model.des = streamTask.response.description;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
 }
 
 - (void)dd_replace_URLSession:(NSURLSession *)session streamTask:(NSURLSessionStreamTask *)streamTask
 didBecomeInputStream:(NSInputStream *)inputStream
       outputStream:(NSOutputStream *)outputStream {
-    logan(DDNetLogSuccess, [NSString stringWithFormat:@"NSURLSession response=%@",streamTask.response.description]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.url = streamTask.response.URL.absoluteString;
+    if ([streamTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        model.code = ((NSHTTPURLResponse *)streamTask.response).statusCode;
+    }
+    model.des = streamTask.response.description;
+    logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_URLSession:session streamTask:streamTask didBecomeInputStream:inputStream outputStream:outputStream];
 }
 

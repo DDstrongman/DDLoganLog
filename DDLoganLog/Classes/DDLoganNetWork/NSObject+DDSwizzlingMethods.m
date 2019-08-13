@@ -15,20 +15,14 @@
     uint64_t file_max = 100 * 1024 * 1024;
     // logan init，incoming 16-bit key，16-bit iv，largest written to the file size(byte)
     loganInit(keydata, ivdata, file_max);
-    loganSetMaxReversedDate(14);
+    loganSetMaxReversedDate(7);
 #if DEBUG
     loganUseASL(YES);
 #endif
-//        DDWS(weakSelf)
-//        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-//            DDSS(strongSelf)
-//            [strongSelf uploadLogan];
-//        }];
 }
 
 + (void)swizzlingMethodWithOriginalSel:(SEL)originalSel
                            swizzledSel:(SEL)swizzledSel {
-//    DDLog(@"交换实例方法");
     Class class = [self class];
     
     SEL originalSelector = originalSel;
@@ -42,7 +36,6 @@
 
 + (void)swizzlingClassMethodWithOriginalSel:(SEL)originalSel
                                 swizzledSel:(SEL)swizzledSel {
-//    DDLog(@"交换类方法");
     Class class = [self class];
     
     SEL originalSelector = originalSel;
@@ -64,8 +57,6 @@
             }
         });
     }];
-    
-    NSLog(@"uploadLogan=====%@",map);
 }
 #pragma mark - support methods
 + (void)deleteLoganFile:(NSString *)filePath {

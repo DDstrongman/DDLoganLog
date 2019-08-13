@@ -21,17 +21,23 @@
     NSURLSessionDataTask *localDataTask = [session dataTaskWithURL:nil];
     [[localDataTask class] aspect_hookSelector:@selector(resume) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
         NSURLSessionTask *task = [aspectInfo instance];
-        logan(DDNetLogBegin,[NSString stringWithFormat:@"NSURLSessionTask resume url=%@",[task.currentRequest.URL absoluteString]]);
-        loganFlush();
+        
+        DDLoganLogModel *model = [DDLoganLogModel new];
+        model.url = [task.currentRequest.URL absoluteString];
+        model.des = @"NSURLSessionTask resume";
+        logan(DDNetLogBegin, [@"" objectToJson:model.mj_keyValues]);
         if (task.error) {
-            logan(DDNetLogFailed,[NSString stringWithFormat:@"NSURLSessionTask error url=%@,error=%@",[task.currentRequest.URL absoluteString],task.error]);
-            loganFlush();
+            model.code = error.code;
+            model.des = error.description;
+            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         }
     } error:&error];
     [[localDataTask class] aspect_hookSelector:@selector(suspend) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
         NSURLSessionTask *task = [aspectInfo instance];
-        logan(DDNetLogFailed,[NSString stringWithFormat:@"NSURLSessionTask suspend url=%@",[task.currentRequest.URL absoluteString]]);
-        loganFlush();
+        DDLoganLogModel *model = [DDLoganLogModel new];
+        model.url = [task.currentRequest.URL absoluteString];
+        model.des = @"NSURLSessionTask suspend";
+        logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
     } error:&error];
 }
 
