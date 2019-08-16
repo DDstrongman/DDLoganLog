@@ -19,14 +19,22 @@
 }
 
 - (void)dd_alertController_viewDidAppear:(BOOL)animated {
-    logan(DDEventAlertControllerDidAppear, [NSString stringWithFormat:@"AppearVCClass=%@,title=%@,message=%@",NSStringFromClass([self class]),self.title,self.message]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.des = @"AppearVCClass";
+    model.alertControllerTitle = self.title;
+    model.alertControllerMessage = self.message;
+    logan(DDEventAlertControllerDidAppear, [@"" objectToJson:model.mj_keyValues]);
     [self dd_alertController_viewDidAppear:animated];
 }
 
 - (void)dd_alertController_viewDidDisappear:(BOOL)animated {
-    logan(DDEventAlertControllerDidDisappear, [NSString stringWithFormat:@"DisappearVCClass=%@,title=%@,message=%@",NSStringFromClass([self class]),self.title,self.message]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.des = @"DisappearVCClass";
+    model.alertControllerTitle = self.title;
+    model.alertControllerMessage = self.message;
+    logan(DDEventAlertControllerDidDisappear, [@"" objectToJson:model.mj_keyValues]);
     [self dd_alertController_viewDidDisappear:animated];
 }
 

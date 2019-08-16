@@ -25,13 +25,21 @@
 }
 
 - (void)dd_add_scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    logan(DDEventScrollviewDidScroll, [NSString stringWithFormat:@"scroll:x=%f,y=%f,frame.x=%f,frame.y=%f",scrollView.contentOffset.x,scrollView.contentOffset.y,scrollView.frame.origin.x,scrollView.frame.origin.y]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.contentOffset = NSStringFromCGPoint(scrollView.contentOffset) ;
+    model.des = @"scroll DidEndDecelerating";
+    model.frame = NSStringFromCGRect(scrollView.frame);
+    logan(DDEventScrollviewDidScroll, [@"" objectToJson:model.mj_keyValues]);
 }
 
 - (void)dd_replace_scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    logan(DDEventScrollviewDidScroll, [NSString stringWithFormat:@"scroll:x=%f,y=%f,frame.x=%f,frame.y=%f",scrollView.contentOffset.x,scrollView.contentOffset.y,scrollView.frame.origin.x,scrollView.frame.origin.y]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.contentOffset = NSStringFromCGPoint(scrollView.contentOffset) ;
+    model.des = @"scroll DidEndDecelerating";
+    model.frame = NSStringFromCGRect(scrollView.frame);
+    logan(DDEventScrollviewDidScroll, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_scrollViewDidEndDecelerating:scrollView];
 }
 

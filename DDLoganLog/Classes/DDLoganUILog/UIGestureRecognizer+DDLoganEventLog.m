@@ -23,8 +23,12 @@
                   withOptions:AspectPositionBefore
                    usingBlock:^(id<AspectInfo> aspectInfo,id target,SEL action) {
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
-                           logan(DDEventGestureTargetAction, [NSString stringWithFormat:@"uigesture  class=%@,target=%@,sel=%@",NSStringFromClass([self class]),target,NSStringFromSelector(action)]);
-                           loganFlush();
+                           DDLoganLogModel *model = [DDLoganLogModel new];
+                           model.className = NSStringFromClass([self class]);
+                           model.targetClassName = target;
+                           model.des = @"UIGestureRecognizer initWithTarget";
+                           model.selectorName = NSStringFromSelector(action);
+                           logan(DDEventGestureTargetAction, [@"" objectToJson:model.mj_keyValues]);
                        } error:nil];
                    }
                         error:&error];
@@ -32,8 +36,12 @@
                   withOptions:AspectPositionBefore
                    usingBlock:^(id<AspectInfo> aspectInfo,id target,SEL action) {
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
-                           logan(DDEventGestureTargetAction, [NSString stringWithFormat:@"uigesture  class=%@,target=%@,sel=%@",NSStringFromClass([self class]),target,NSStringFromSelector(action)]);
-                           loganFlush();
+                           DDLoganLogModel *model = [DDLoganLogModel new];
+                           model.className = NSStringFromClass([self class]);
+                           model.targetClassName = target;
+                           model.des = @"UIGestureRecognizer addTarget";
+                           model.selectorName = NSStringFromSelector(action);
+                           logan(DDEventGestureTargetAction, [@"" objectToJson:model.mj_keyValues]);
                        } error:nil];
                    } error:&error];
 }

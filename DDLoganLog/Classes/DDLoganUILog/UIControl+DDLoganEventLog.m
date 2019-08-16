@@ -17,11 +17,15 @@
                   withOptions:AspectPositionBefore
                    usingBlock:^(id<AspectInfo> aspectInfo,id target,SEL action,UIControlEvents controlEvents) {
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo){
-                           logan(DDEventControlTargetAction, [NSString stringWithFormat:@"uicontrol  class=%@,target=%@,sel=%@,events=%ld",self,target,NSStringFromSelector(action),controlEvents]);
-                           loganFlush();
+                           DDLoganLogModel *model = [DDLoganLogModel new];
+                           model.className = NSStringFromClass([self class]);
+                           model.targetClassName = target;
+                           model.des = @"UIControl addTargetFunc";
+                           model.selectorName = NSStringFromSelector(action);
+                           model.info = [NSString stringWithFormat:@"controlEvents=%ld",controlEvents];
+                           logan(DDEventControlTargetAction, [@"" objectToJson:model.mj_keyValues]);
                        } error:nil];
-                   }
-                        error:&error];
+                   } error:&error];
 }
 
 @end

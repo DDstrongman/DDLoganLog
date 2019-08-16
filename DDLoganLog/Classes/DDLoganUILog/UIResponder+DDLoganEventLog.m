@@ -13,7 +13,6 @@
 @implementation UIResponder (DDLoganEventLog)
 
 + (void)load {
-    NSError *error;
     [self swizzlingMethodWithOriginalSel:@selector(becomeFirstResponder)
                              swizzledSel:@selector(dd_becomeFirstResponder)];
     [self swizzlingMethodWithOriginalSel:@selector(resignFirstResponder)
@@ -31,8 +30,10 @@
 - (BOOL)dd_becomeFirstResponder {
     BOOL result = [self dd_becomeFirstResponder];
     if (![self isKindOfClass:[UIViewController class]]) {
-        logan(DDEventBecomeFirstResponder, [NSString stringWithFormat:@"className=%@",NSStringFromClass([self class])]);
-        loganFlush();
+        DDLoganLogModel *model = [DDLoganLogModel new];
+        model.className = NSStringFromClass([self class]);
+        model.des = @"UIResponder becomeFirstResponder";
+        logan(DDEventBecomeFirstResponder, [@"" objectToJson:model.mj_keyValues]);
     }
     return result;
 }
@@ -40,8 +41,10 @@
 - (BOOL)dd_resignFirstResponder {
     BOOL result = [self dd_resignFirstResponder];
     if (![self isKindOfClass:[UIViewController class]]) {
-        logan(DDEventResignFirstResponder, [NSString stringWithFormat:@"className=%@",NSStringFromClass([self class])]);
-        loganFlush();
+        DDLoganLogModel *model = [DDLoganLogModel new];
+        model.className = NSStringFromClass([self class]);
+        model.des = @"UIResponder resignFirstResponder";
+        logan(DDEventResignFirstResponder, [@"" objectToJson:model.mj_keyValues]);
     }
     return result;
 }

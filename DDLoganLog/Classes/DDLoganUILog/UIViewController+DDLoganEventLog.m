@@ -20,14 +20,18 @@
 }
 
 - (void)dd_viewDidAppear:(BOOL)animated {
-    logan(DDEventViewControllerDidAppear, [NSString stringWithFormat:@"AppearVCClass=%@",NSStringFromClass([self class])]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.des = @"AppearVCClass";
+    logan(DDEventViewControllerDidAppear, [@"" objectToJson:model.mj_keyValues]);
     [self dd_viewDidAppear:animated];
 }
 
 - (void)dd_viewDidDisappear:(BOOL)animated {
-    logan(DDEventViewControllerDidDisappear, [NSString stringWithFormat:@"DisappearVCClass=%@",NSStringFromClass([self class])]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.des = @"DisappearVCClass";
+    logan(DDEventViewControllerDidDisappear, [@"" objectToJson:model.mj_keyValues]);
     [self dd_viewDidDisappear:animated];
 }
 

@@ -23,14 +23,22 @@
 }
 
 - (void)dd_replace_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    logan(DDEventCollectionviewDidSelect, [NSString stringWithFormat:@"collectionView select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,collectionView.frame.origin.x,collectionView.frame.origin.y]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.indexPath = [NSString stringWithFormat:@"section=%ld,row=%ld",indexPath.section,indexPath.row] ;
+    model.des = @"collectionView didSelectItemAtIndexPath";
+    model.frame = NSStringFromCGRect(collectionView.frame);
+    logan(DDEventCollectionviewDidSelect, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_collectionView:collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 - (void)dd_add_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    logan(DDEventCollectionviewDidSelect, [NSString stringWithFormat:@"collectionView select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,collectionView.frame.origin.x,collectionView.frame.origin.y]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.indexPath = [NSString stringWithFormat:@"section=%ld,row=%ld",indexPath.section,indexPath.row] ;
+    model.des = @"collectionView didSelectItemAtIndexPath";
+    model.frame = NSStringFromCGRect(collectionView.frame);
+    logan(DDEventCollectionviewDidSelect, [@"" objectToJson:model.mj_keyValues]);
 }
 
 @end

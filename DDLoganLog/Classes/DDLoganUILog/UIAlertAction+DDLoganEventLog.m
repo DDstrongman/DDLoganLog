@@ -20,8 +20,12 @@
     return [self dd_actionWithTitle:title
                               style:style
                             handler:^(UIAlertAction *action) {
-                                logan(DDEventAlertActionClick, [NSString stringWithFormat:@"title=%@,style=%ld",title,style]);
-                                loganFlush();
+                                DDLoganLogModel *model = [DDLoganLogModel new];
+                                model.className = NSStringFromClass([self class]);
+                                model.alertActionTitle = title;
+                                model.alertActionStyle = [NSString stringWithFormat:@"alertAction Style=%ld",style];
+                                model.des = @"eventAlertActionClick";
+                                logan(DDEventAlertActionClick, [@"" objectToJson:model.mj_keyValues]);
                                 if (handler) {
                                     handler(action);
                                 }

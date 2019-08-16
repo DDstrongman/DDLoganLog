@@ -15,13 +15,18 @@
 + (void)load {
     NSError *error;
     [self aspect_hookSelector:@selector(openURL:options:completionHandler:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSURL *url ,NSDictionary<UIApplicationOpenExternalURLOptionsKey, id> *options,void(^completion)(BOOL success)) {
-        logan(DDEventApplicationOpenUrl, [NSString stringWithFormat:@"UIApplication open Url=%@,options=%@",url,options]);
-        loganFlush();
-    }
-                        error:&error];
+        DDLoganLogModel *model = [DDLoganLogModel new];
+        model.url = url.absoluteString;
+        model.des = @"UIApplication OpenUrl";
+        model.info = options;
+        logan(DDEventApplicationOpenUrl, [@"" objectToJson:model.mj_keyValues]);
+    } error:&error];
     [[[UIApplication sharedApplication].delegate class] aspect_hookSelector:@selector(application:openURL:options:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,UIApplication *app,NSURL *url ,NSDictionary<UIApplicationOpenURLOptionsKey, id> *options){
-        logan(DDEventApplicationOpenUrl, [NSString stringWithFormat:@"UIApplication open Url=%@,options=%@,app=%@",url,options,app]);
-        loganFlush();
+        DDLoganLogModel *model = [DDLoganLogModel new];
+        model.url = url.absoluteString;
+        model.des = @"UIApplication OpenUrl";
+        model.info = options;
+        logan(DDEventApplicationOpenUrl, [@"" objectToJson:model.mj_keyValues]);
     } error:&error];
 }
 

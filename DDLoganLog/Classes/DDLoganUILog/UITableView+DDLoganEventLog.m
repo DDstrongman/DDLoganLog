@@ -24,14 +24,22 @@
 }
 
 - (void)dd_replace_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    logan(DDEventTableviewDidSelect, [NSString stringWithFormat:@"tableview select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,tableView.frame.origin.x,tableView.frame.origin.y]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.indexPath = [NSString stringWithFormat:@"section=%ld,row=%ld",indexPath.section,indexPath.row] ;
+    model.des = @"tableView didSelectRowAtIndexPath";
+    model.frame = NSStringFromCGRect(tableView.frame);
+    logan(DDEventTableviewDidSelect, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
 - (void)dd_add_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    logan(DDEventTableviewDidSelect, [NSString stringWithFormat:@"tableview select section=%ld,row=%ld,frame.x=%f,frame.y=%f",indexPath.section,indexPath.row,tableView.frame.origin.x,tableView.frame.origin.y]);
-    loganFlush();
+    DDLoganLogModel *model = [DDLoganLogModel new];
+    model.className = NSStringFromClass([self class]);
+    model.indexPath = [NSString stringWithFormat:@"section=%ld,row=%ld",indexPath.section,indexPath.row] ;
+    model.des = @"tableView didSelectRowAtIndexPath";
+    model.frame = NSStringFromCGRect(tableView.frame);
+    logan(DDEventTableviewDidSelect, [@"" objectToJson:model.mj_keyValues]);
 }
 
 @end
