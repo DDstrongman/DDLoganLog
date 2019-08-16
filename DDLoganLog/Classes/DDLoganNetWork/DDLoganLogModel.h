@@ -57,7 +57,7 @@ typedef enum {
 
 #pragma mark - event
 @property (nonatomic, strong) NSString *className;///< 类名
-@property (nonatomic, strong) NSString *targetClassName;///< 目标类名
+//@property (nonatomic, strong) id targetClassName;///< 目标类名
 @property (nonatomic, strong) NSString *selectorName;///< 选择器方法名
 @property (nonatomic, strong) id info;///< 附属信息
 @property (nonatomic, strong) NSString *alertActionTitle;///< alert action item title

@@ -25,7 +25,7 @@
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
                            DDLoganLogModel *model = [DDLoganLogModel new];
                            model.className = NSStringFromClass([self class]);
-                           model.targetClassName = target;
+//                           model.targetClassName = target;
                            model.des = @"UIGestureRecognizer initWithTarget";
                            model.selectorName = NSStringFromSelector(action);
                            logan(DDEventGestureTargetAction, [@"" objectToJson:model.mj_keyValues]);
@@ -38,7 +38,7 @@
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
                            DDLoganLogModel *model = [DDLoganLogModel new];
                            model.className = NSStringFromClass([self class]);
-                           model.targetClassName = target;
+//                           model.targetClassName = target;
                            model.des = @"UIGestureRecognizer addTarget";
                            model.selectorName = NSStringFromSelector(action);
                            logan(DDEventGestureTargetAction, [@"" objectToJson:model.mj_keyValues]);

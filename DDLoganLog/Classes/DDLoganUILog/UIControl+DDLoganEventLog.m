@@ -19,7 +19,8 @@
                        [target aspect_hookSelector:action withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo){
                            DDLoganLogModel *model = [DDLoganLogModel new];
                            model.className = NSStringFromClass([self class]);
-                           model.targetClassName = target;
+//                           model.targetClassName = target;
+                           
                            model.des = @"UIControl addTargetFunc";
                            model.selectorName = NSStringFromSelector(action);
                            model.info = [NSString stringWithFormat:@"controlEvents=%ld",controlEvents];
