@@ -6,7 +6,12 @@
 //
 
 #import "DDLoganLogModel.h"
+#import "NSString+DDLoganNetwork.h"
 
 @implementation DDLoganLogModel
+
+- (NSString *)uuid {
+    return [@"" deviceUUID];
+}
 
 @end

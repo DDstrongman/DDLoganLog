@@ -24,20 +24,27 @@
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = request.URL.absoluteString;
     model.des = @"NSURLConnection sendSynchronous";
+    if (model.url && model.url.length > 0) {
+        NSString *httpUUID = [NSString httpUUID];
+        model.httpUUID = httpUUID;
+    }
+    NSString *startTime = [@"" currentTime];
     logan(DDNetLogBegin, [@"" objectToJson:model.mj_keyValues]);
     NSData *tempData = [self dd_sendSynchronousRequest:request
                                      returningResponse:response
                                                  error:error];
     if (error) {
-        model.code = (*error).code;
+        model.code = [NSString stringWithFormat:@"%ld",(*error).code];
         model.des = (*error).description;
         logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
     } else {
         if (response) {
             if ([(*response) isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)(*response)).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)(*response)).statusCode];
             }
             model.des = (*response).description;
+            NSString *endTime = [@"" currentTime];
+            model.httpTime = [NSString stringWithFormat:@"%ld",[endTime integerValue] - [startTime integerValue]];
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
         }
     }
@@ -50,19 +57,26 @@
     __block DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = request.URL.absoluteString;
     model.des = @"NSURLConnection sendAsynchronous";
+    if (model.url && model.url.length > 0) {
+        NSString *httpUUID = [NSString httpUUID];
+        model.httpUUID = httpUUID;
+    }
+    NSString *startTime = [@"" currentTime];
     logan(DDNetLogBegin, [@"" objectToJson:model.mj_keyValues]);
     [self dd_sendAsynchronousRequest:request
                                queue:queue
                    completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
                        if (connectionError) {
-                           model.code = connectionError.code;
+                           model.code = [NSString stringWithFormat:@"%ld",connectionError.code];
                            model.des = connectionError.description;
                            logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
                        } else {
                            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                               model.code = ((NSHTTPURLResponse *)response).statusCode;
+                               model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
                            }
                            model.des = response.description;
+                           NSString *endTime = [@"" currentTime];
+                           model.httpTime = [NSString stringWithFormat:@"%ld",[endTime integerValue] - [startTime integerValue]];
                            logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
                        }
                        if (handler) {

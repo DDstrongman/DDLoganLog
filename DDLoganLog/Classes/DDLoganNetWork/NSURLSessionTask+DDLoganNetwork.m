@@ -27,7 +27,7 @@
         model.des = @"NSURLSessionTask resume";
         logan(DDNetLogBegin, [@"" objectToJson:model.mj_keyValues]);
         if (task.error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         }

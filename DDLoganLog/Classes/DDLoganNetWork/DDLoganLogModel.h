@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef enum {
     DDActionEventLogType = 0,
     DDNetLogInit,
@@ -36,17 +38,20 @@ typedef enum {
     DDEventAlertControllerDidDisappear
 }DDLoganLogType;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface DDLoganLogModel : NSObject
 
-#pragma mark - network log
+#pragma mark - 初始必然存在的string
+@property (nonatomic, strong) NSString *uuid;///< 设备uuid
+@property (nonatomic, strong) NSString *gkid_no;///< 用户账户id
+
+#pragma mark - http
 @property (nonatomic, strong) NSString *url;///< 请求url
 @property (nonatomic, strong) NSString *des;///< 此实例详细描述
-@property (nonatomic, assign) NSInteger code;///< 分类code
+@property (nonatomic, strong) NSString *code;///< 分类code
 @property (nonatomic, strong) NSString *method;///< 请求方法类型
 @property (nonatomic, strong) NSString *message;///< 返回的信息
-#pragma mark - ui event log
+@property (nonatomic, strong) NSString *httpTime;///< http请求从发起到完成的时间，仅统计完成的请求时间
+@property (nonatomic, strong) NSString *httpUUID;///< http请求从生成、发起到完成的唯一对应uuid
 
 @end
 

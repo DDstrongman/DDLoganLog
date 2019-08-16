@@ -53,12 +53,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -80,12 +80,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -107,12 +107,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_uploadTaskWithRequest:request fromFile:fileURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -134,12 +134,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_uploadTaskWithRequest:request fromData:bodyData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -161,12 +161,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -188,12 +188,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -214,12 +214,12 @@
     logan(DDNetLogInit, [@"" objectToJson:model.mj_keyValues]);
     return [self dd_downloadTaskWithResumeData:resumeData completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            model.code = error.code;
+            model.code = [NSString stringWithFormat:@"%ld",error.code];
             model.des = error.description;
             logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
         } else {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                model.code = ((NSHTTPURLResponse *)response).statusCode;
+                model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
             }
             model.des = response.description;
             logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -233,7 +233,7 @@
 - (void)dd_add_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
  didCompleteWithError:(nullable NSError *)error {
     DDLoganLogModel *model = [DDLoganLogModel new];
-    model.code = error.code;
+    model.code = [NSString stringWithFormat:@"%ld",error.code];
     model.des = error.description;
     logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
 }
@@ -241,7 +241,7 @@
 - (void)dd_replace_URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
      didCompleteWithError:(nullable NSError *)error {
     DDLoganLogModel *model = [DDLoganLogModel new];
-    model.code = error.code;
+    model.code = [NSString stringWithFormat:@"%ld",error.code];
     model.des = error.description;
     logan(DDNetLogFailed, [@"" objectToJson:model.mj_keyValues]);
     [self dd_replace_URLSession:session task:task didCompleteWithError:error];
@@ -253,7 +253,7 @@
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = response.URL.absoluteString;
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-        model.code = ((NSHTTPURLResponse *)response).statusCode;
+        model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
     }
     model.des = response.description;
     logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -265,7 +265,7 @@ didReceiveResponse:(NSURLResponse *)response
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = response.URL.absoluteString;
     if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-        model.code = ((NSHTTPURLResponse *)response).statusCode;
+        model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)response).statusCode];
     }
     model.des = response.description;
     logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -278,7 +278,7 @@ didFinishDownloadingToURL:(NSURL *)location {
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = downloadTask.response.URL.absoluteString;
     if ([downloadTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        model.code = ((NSHTTPURLResponse *)downloadTask.response).statusCode;
+        model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)downloadTask.response).statusCode];
     }
     model.des = downloadTask.response.description;
     logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -290,7 +290,7 @@ didFinishDownloadingToURL:(NSURL *)location {
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = downloadTask.response.URL.absoluteString;
     if ([downloadTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        model.code = ((NSHTTPURLResponse *)downloadTask.response).statusCode;
+        model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)downloadTask.response).statusCode];
     }
     model.des = downloadTask.response.description;
     logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -303,7 +303,7 @@ didFinishDownloadingToURL:(NSURL *)location {
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = streamTask.response.URL.absoluteString;
     if ([streamTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        model.code = ((NSHTTPURLResponse *)streamTask.response).statusCode;
+        model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)streamTask.response).statusCode];
     }
     model.des = streamTask.response.description;
     logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
@@ -315,7 +315,7 @@ didBecomeInputStream:(NSInputStream *)inputStream
     DDLoganLogModel *model = [DDLoganLogModel new];
     model.url = streamTask.response.URL.absoluteString;
     if ([streamTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        model.code = ((NSHTTPURLResponse *)streamTask.response).statusCode;
+        model.code = [NSString stringWithFormat:@"%ld",((NSHTTPURLResponse *)streamTask.response).statusCode];
     }
     model.des = streamTask.response.description;
     logan(DDNetLogSuccess, [@"" objectToJson:model.mj_keyValues]);
