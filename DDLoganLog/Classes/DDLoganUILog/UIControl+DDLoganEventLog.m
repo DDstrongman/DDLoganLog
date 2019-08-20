@@ -12,6 +12,7 @@
 @implementation UIControl (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     NSError *error;
     [self aspect_hookSelector:@selector(addTarget:action:forControlEvents:)
                   withOptions:AspectPositionBefore

@@ -10,15 +10,22 @@
 @implementation NSObject (DDSwizzlingMethods) 
 
 + (void)load {
-    NSData *keydata = [@"3211231231321312" dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *ivdata = [@"1232132132131231" dataUsingEncoding:NSUTF8StringEncoding];
-    uint64_t file_max = 100 * 1024 * 1024;
-    // logan init，incoming 16-bit key，16-bit iv，largest written to the file size(byte)
-    loganInit(keydata, ivdata, file_max);
-    loganSetMaxReversedDate(7);
+    [self loganInit];
+}
+
++ (void)loganInit {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSData *keydata = [@"3211231231321312" dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *ivdata = [@"1232132132131231" dataUsingEncoding:NSUTF8StringEncoding];
+        uint64_t file_max = 10 * 1024 * 1024;
+        // logan init，incoming 16-bit key，16-bit iv，largest written to the file size(byte)
+        loganInit(keydata, ivdata, file_max);
+        loganSetMaxReversedDate(7);
 #if DEBUG
-    loganUseASL(YES);
+        loganUseASL(YES);
 #endif
+    });
 }
 
 + (void)swizzlingMethodWithOriginalSel:(SEL)originalSel

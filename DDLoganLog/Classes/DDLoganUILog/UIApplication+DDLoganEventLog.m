@@ -13,6 +13,7 @@
 @implementation UIApplication (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     NSError *error;
     [self aspect_hookSelector:@selector(openURL:options:completionHandler:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo,NSURL *url ,NSDictionary<UIApplicationOpenExternalURLOptionsKey, id> *options,void(^completion)(BOOL success)) {
         DDLoganLogModel *model = [DDLoganLogModel new];

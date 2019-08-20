@@ -12,6 +12,7 @@
 @implementation UIGestureRecognizer (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     NSError *error;
 //    [self swizzlingMethodWithOriginalSel:@selector(initWithTarget:action:)
 //                             swizzledSel:@selector(dd_initWithTarget:action:)];

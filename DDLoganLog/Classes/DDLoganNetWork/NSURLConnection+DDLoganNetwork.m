@@ -12,6 +12,7 @@
 @implementation NSURLConnection (DDLoganNetwork)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingClassMethodWithOriginalSel:@selector(sendSynchronousRequest:returningResponse:error:)
                                   swizzledSel:@selector(dd_sendSynchronousRequest:returningResponse:error:)];
     [self swizzlingClassMethodWithOriginalSel:@selector(sendAsynchronousRequest:queue:completionHandler:)

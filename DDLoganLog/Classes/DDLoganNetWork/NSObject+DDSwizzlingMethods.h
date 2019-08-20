@@ -85,6 +85,7 @@ static void inline dd_exchangeMethod(Class originalClass, SEL originalSel, Class
  @param filePath 日志路径
  */
 + (void)deleteLoganFile:(NSString *)filePath;
++ (void)loganInit;///< init logan，自动调用，无需自己调用
 
 @end
 

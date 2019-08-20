@@ -12,6 +12,7 @@
 @implementation UIAlertController (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingMethodWithOriginalSel:@selector(viewDidAppear:)
                              swizzledSel:@selector(dd_alertController_viewDidAppear:)];
     [self swizzlingMethodWithOriginalSel:@selector(viewDidDisappear:)

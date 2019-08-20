@@ -11,9 +11,8 @@
 
 @implementation UIScrollView (DDLoganEventLog)
 
-
-
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingMethodWithOriginalSel:@selector(setDelegate:)
                              swizzledSel:@selector(dd_scrollview_setDelegate:)];
 }

@@ -12,6 +12,7 @@
 @implementation UICollectionView (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingMethodWithOriginalSel:@selector(setDelegate:)
                              swizzledSel:@selector(dd_collectionview_setDelegate:)];
 }

@@ -13,6 +13,7 @@
 @implementation UIResponder (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingMethodWithOriginalSel:@selector(becomeFirstResponder)
                              swizzledSel:@selector(dd_becomeFirstResponder)];
     [self swizzlingMethodWithOriginalSel:@selector(resignFirstResponder)

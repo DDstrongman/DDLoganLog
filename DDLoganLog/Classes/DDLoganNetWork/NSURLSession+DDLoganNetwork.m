@@ -12,6 +12,7 @@
 @implementation NSURLSession (DDLoganNetwork)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingClassMethodWithOriginalSel:@selector(sessionWithConfiguration:delegate:delegateQueue:) swizzledSel:@selector(dd_sessionWithConfiguration:delegate:delegateQueue:)];
     [self swizzlingMethodWithOriginalSel:@selector(dataTaskWithURL:completionHandler:) swizzledSel:@selector(dd_dataTaskWithURL:completionHandler:)];
     [self swizzlingMethodWithOriginalSel:@selector(dataTaskWithRequest:completionHandler:) swizzledSel:@selector(dd_dataTaskWithRequest:completionHandler:)];

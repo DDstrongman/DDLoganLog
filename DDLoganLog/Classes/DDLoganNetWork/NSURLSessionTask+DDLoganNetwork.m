@@ -13,6 +13,7 @@
 @implementation NSURLSessionTask (DDLoganNetwork)
 
 + (void)load {
+    [NSObject loganInit];
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession * session = [NSURLSession sessionWithConfiguration:configuration];

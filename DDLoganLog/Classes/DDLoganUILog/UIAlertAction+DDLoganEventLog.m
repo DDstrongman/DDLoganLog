@@ -12,6 +12,7 @@
 @implementation UIAlertAction (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingClassMethodWithOriginalSel:@selector(actionWithTitle:style:handler:)
                                   swizzledSel:@selector(dd_actionWithTitle:style:handler:)];
 }

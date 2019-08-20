@@ -13,6 +13,7 @@
 @implementation UITableView (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingMethodWithOriginalSel:@selector(setDelegate:)
                              swizzledSel:@selector(dd_tableview_setDelegate:)];
 }

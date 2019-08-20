@@ -13,6 +13,7 @@
 @implementation UIViewController (DDLoganEventLog)
 
 + (void)load {
+    [NSObject loganInit];
     [self swizzlingMethodWithOriginalSel:@selector(viewDidAppear:)
                              swizzledSel:@selector(dd_viewDidAppear:)];
     [self swizzlingMethodWithOriginalSel:@selector(viewDidDisappear:)
