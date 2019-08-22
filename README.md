@@ -45,11 +45,11 @@
 
 ## Requirements
 
-日志依赖于Logan，部分swizzle依赖于Aspects.
+日志依赖于Logan，部分swizzle依赖于Aspects，上传json格式依赖于mjextension
 
 ## Installation
 
-HttpSupportSpec is available through [CocoaPods](http://cocoapods.org). To install
+DDLoganLog is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
